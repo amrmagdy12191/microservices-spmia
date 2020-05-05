@@ -7,4 +7,4 @@ spring:
     config:
       server:
         native:
-          search-locations: /Users/amrmagdy/git/microservices-spmia/confsvr/src/main/resources/config
+          search-locations: classpath:config/,classpath:config/licensingservice,classpath:config/organizationservice
