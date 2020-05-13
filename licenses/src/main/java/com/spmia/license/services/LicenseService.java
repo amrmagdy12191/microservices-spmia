@@ -6,8 +6,10 @@ import java.util.UUID;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.spmia.license.clients.OrganizationDiscoveryClient;
 import com.spmia.license.config.ServiceConfig;
 import com.spmia.license.model.License;
+import com.spmia.license.model.Organization;
 import com.spmia.license.repository.LicenseRepository;
 
 @Service
@@ -17,6 +19,9 @@ public class LicenseService {
 	
 	@Autowired
 	private ServiceConfig serviceConfig;
+	
+	@Autowired
+	private OrganizationDiscoveryClient organizationClient;
 	
 	public License getLicense(String organizationId, String licenseId) {
 		License license = licenseRepository.findByOrganizationIdAndLicenseId(organizationId, licenseId);
@@ -30,6 +35,22 @@ public class LicenseService {
 	public void saveLicense(License license) {
 		license.setLicenseId(UUID.randomUUID().toString());
 		licenseRepository.save(license);
+	}
+	
+	public License getLicense(String organizationId, String licenseId, String clientType) {
+		License licencse = licenseRepository.findByOrganizationIdAndLicenseId(organizationId, licenseId);
+		Organization organization = retrieveInfo(organizationId, clientType);
+		
+		return licencse.withOrganizationName(organization.getName())
+				.withContactName(organization.getContactName())
+				.withContactEmail(organization.getContactEmail())
+				.withContactPhone(organization.getContactPhone())
+				.withComment(serviceConfig.getExampleProperty());
+		
+	}
+	
+	private Organization retrieveInfo(String organizationId, String clientType) {
+		return organizationClient.getOrganization(organizationId);
 	}
 
 }
