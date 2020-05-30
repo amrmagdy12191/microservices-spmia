@@ -28,12 +28,11 @@ public class LicenseServiceController {
 		return license;
 	}
 	
-	@RequestMapping(value="/{licenseId}/{client}")
+	@RequestMapping(value="/{licenseId}/{clientType}")
 	public License getLicenceWithClient(@PathVariable String licenseId,
 			@PathVariable String clientType,
 			@PathVariable String organizationId) {
-		licenseService.getLicense(organizationId, licenseId, clientType);
-		return null;
+		return licenseService.getLicense(organizationId, licenseId, clientType);
 	}
  
 }
