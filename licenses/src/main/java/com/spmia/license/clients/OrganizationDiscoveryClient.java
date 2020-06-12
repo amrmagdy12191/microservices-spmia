@@ -12,6 +12,8 @@ import org.springframework.web.client.RestTemplate;
 
 import com.spmia.license.model.Organization;
 
+//The worst way to call rest template and using ribbon (load balanced is not used)
+//This may be useful to track service and see what happened there
 
 @Component
 public class OrganizationDiscoveryClient {
