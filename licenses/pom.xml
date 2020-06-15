@@ -5,21 +5,21 @@
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>1.4.4.RELEASE</version>
+		<version>2.2.2.RELEASE</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	
 	<dependencyManagement>
-    <dependencies>
-	      <dependency>
-	        <groupId>org.springframework.cloud</groupId>
-	        <artifactId>spring-cloud-dependencies</artifactId>
-	        <version>Camden.SR5</version>
-	        <type>pom</type>
-	        <scope>import</scope>
-	      </dependency>
-	    </dependencies>
-	  </dependencyManagement>
+		<dependencies>
+			<dependency>
+				<groupId>org.springframework.cloud</groupId>
+				<artifactId>spring-cloud-dependencies</artifactId>
+				<version>${spring-cloud.version}</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
 	
 	<groupId>com.spmia</groupId>
 	<artifactId>licensing-service</artifactId>
@@ -29,6 +29,7 @@
 
 	<properties>
 		<java.version>1.8</java.version>
+		<spring-cloud.version>Hoxton.SR1</spring-cloud.version>
 	</properties>
 
 	<dependencies>
@@ -48,6 +49,9 @@
 		    <optional>true</optional>
 		</dependency>
 		
+		
+		
+	<!-- Config Client -->	
 		<dependency>
 	      <groupId>org.springframework.cloud</groupId>
 	      <artifactId>spring-cloud-starter-config</artifactId>
@@ -57,17 +61,32 @@
 	      <groupId>org.springframework.cloud</groupId>
 	      <artifactId>spring-cloud-config-client</artifactId>
 	    </dependency>
+	<!-- Config Client --> 
 	 
+	 
+	 <!-- netflix Eureka -->
 	    <dependency>
 		    <groupId>org.springframework.cloud</groupId>
-		    <artifactId>spring-cloud-starter-eureka</artifactId>
+		    <artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
 		</dependency>
+		<dependency>
+		    <groupId>com.netflix.hystrix</groupId>
+		    <artifactId>hystrix-javanica</artifactId>
+		</dependency>
+	<!-- netflix Eureka -->	
 		
+	<!-- Feign Client -->	
 		<dependency>
             <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-starter-feign</artifactId>
-</dependency>
+            <artifactId>spring-cloud-starter-openfeign</artifactId>
+		</dependency>
+		<dependency>
+            <groupId>io.github.openfeign</groupId>
+            <artifactId>feign-okhttp</artifactId>
+        </dependency>
+	<!-- Feign Client -->	
 
+		
 		<dependency>	
 		    <groupId>org.springframework.boot</groupId>
 		    <artifactId>spring-boot-starter-data-jpa</artifactId>

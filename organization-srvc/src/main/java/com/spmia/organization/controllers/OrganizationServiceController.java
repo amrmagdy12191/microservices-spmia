@@ -4,6 +4,8 @@ package com.spmia.organization.controllers;
 import com.spmia.organization.model.Organization;
 import com.spmia.organization.services.OrganizationService;
 
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -22,7 +24,11 @@ public class OrganizationServiceController {
 
     @RequestMapping(value="/{organizationId}",method = RequestMethod.GET)
     public Organization getOrganization( @PathVariable("organizationId") String organizationId) {
-        return orgService.getOrg(organizationId);
+        Optional<Organization> org =  orgService.getOrg(organizationId);
+        if(org.isPresent())
+        	return org.get();
+        else
+        	return new Organization();
     }
 
     @RequestMapping(value="/{organizationId}",method = RequestMethod.PUT)
