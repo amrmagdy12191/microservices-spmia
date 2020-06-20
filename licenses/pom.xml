@@ -71,7 +71,7 @@
 		</dependency>
 		<dependency>
 		    <groupId>com.netflix.hystrix</groupId>
-		    <artifactId>hystrix-javanica</artifactId>
+		    <artifactId>hystrix-javanica</artifactId> <!-- core Hystrix libraries -->
 		</dependency>
 	<!-- netflix Eureka -->	
 		
@@ -85,6 +85,20 @@
             <artifactId>feign-okhttp</artifactId>
         </dependency>
 	<!-- Feign Client -->	
+	
+	<!-- Netflix Hystrix  for circuit breaker-->
+		<dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-starter-netflix-hystrix</artifactId>
+		</dependency>
+	<!-- Netflix Hystrix  for circuit breaker-->
+	
+	<!-- Netflix Hystrix  for circuit breaker-->
+		<dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-starter-netflix-hystrix</artifactId>
+		</dependency>
+	<!-- Netflix Hystrix  for circuit breaker-->
 
 		
 		<dependency>	

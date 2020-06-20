@@ -16,6 +16,7 @@ public class LicenseServiceController {
 	@Autowired
 	LicenseService licenseService; 
 	
+	//test url : localhost:8181/v1/organizations/442adb6e-fa58-47f3-9ca2-ed1fecdfe86c/licenses/08dbe05-606e-4dad-9d33-90ef10e334f9
 	@RequestMapping(value="/{licenseId}", method = RequestMethod.GET)
 	public License getLicense(@PathVariable("organizationId") String organizationId,
 			@PathVariable("licenseId") String licenseId) {
@@ -24,15 +25,17 @@ public class LicenseServiceController {
 //		license.setLicenseType("test type");
 //		license.setProductName("test product");
 //		license.setOrganizationId(organizationId);
-		License license = licenseService.getLicense(organizationId, licenseId);
+		License license = licenseService.getLicense(organizationId, licenseId, "test");
 		return license;
 	}
 	
+	// test url : localhost:8181/v1/organizations/442adb6e-fa58-47f3-9ca2-ed1fecdfe86c/licenses/08dbe05-606e-4dad-9d33-90ef10e334f9/test
 	@RequestMapping(value="/{licenseId}/{clientType}")
 	public License getLicenceWithClient(@PathVariable String licenseId,
 			@PathVariable String clientType,
 			@PathVariable String organizationId) {
-		return licenseService.getLicense(organizationId, licenseId, clientType);
+//		return licenseService.getLicense(organizationId, licenseId, clientType);
+		return licenseService.getLicensesByOrg(organizationId).get(0);
 	}
  
 }

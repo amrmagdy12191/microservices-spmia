@@ -13,10 +13,10 @@ import org.springframework.web.client.RestTemplate;
 
 @SpringBootApplication
 @RefreshScope
-@EnableDiscoveryClient
-@EnableFeignClients
-@EnableEurekaClient
-@EnableCircuitBreaker
+//@EnableDiscoveryClient //enable eureka service discovery
+@EnableFeignClients // enable feign client if it is used instead of rest template
+//@EnableEurekaClient //enable eureka client
+@EnableCircuitBreaker // circuit breaker
 public class LicensesApplication {
 
 	public static void main(String[] args) {
