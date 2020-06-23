@@ -93,12 +93,6 @@
 		</dependency>
 	<!-- Netflix Hystrix  for circuit breaker-->
 	
-	<!-- Netflix Hystrix  for circuit breaker-->
-		<dependency>
-			<groupId>org.springframework.cloud</groupId>
-			<artifactId>spring-cloud-starter-netflix-hystrix</artifactId>
-		</dependency>
-	<!-- Netflix Hystrix  for circuit breaker-->
 
 		
 		<dependency>	

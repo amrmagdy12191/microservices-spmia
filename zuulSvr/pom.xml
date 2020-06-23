@@ -57,6 +57,9 @@
 		    <artifactId>hystrix-javanica</artifactId> <!-- core Hystrix libraries -->
 		</dependency>
 	<!-- netflix Eureka -->
+	
+
+	
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-devtools</artifactId>
