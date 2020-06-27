@@ -95,8 +95,8 @@ public class LicenseService {
 	
 	private Organization retrieveInfo(String organizationId, String clientType) {
 		//return organizationClient.getOrganization(organizationId);
-//		return organizationRestTemplateClient.getOrganization(organizationId);
-		return organizationFeignClient.getOrganization(organizationId);
+		return organizationRestTemplateClient.getOrganization(organizationId);
+//		return organizationFeignClient.getOrganization(organizationId);
 	}
 	
 	private void randomlyRunLong() {
