@@ -12,8 +12,8 @@ import org.springframework.security.oauth2.provider.token.TokenEnhancer;
 import com.spmia.authentication.model.UserOrganization;
 import com.spmia.authentication.repositories.OrgUserRepository;
 
-public class JWTTokenEnhancer /*implements TokenEnhancer*/ {
-	/*@Autowired
+public class JWTTokenEnhancer implements TokenEnhancer {
+	@Autowired
 	private OrgUserRepository orgUserRepo;
 
 	private String getOrgId(String userName) {
@@ -30,6 +30,6 @@ public class JWTTokenEnhancer /*implements TokenEnhancer*/ {
 
 		((DefaultOAuth2AccessToken) accessToken).setAdditionalInformation(additionalInfo);
 		return accessToken;
-	}*/
+	}
 
 }

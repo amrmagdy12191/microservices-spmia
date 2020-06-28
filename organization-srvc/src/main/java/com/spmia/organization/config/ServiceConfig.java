@@ -1,23 +1,16 @@
-package com.spmia.license.config;
+package com.spmia.organization.config;
 
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.stereotype.Component;
 
 @Component
+//@Configuration
 public class ServiceConfig {
-	@Value("${example.property}")
-	private String exampleProperty;
-
-	public String getExampleProperty() {
-		return exampleProperty;
-	}
-	
 	//@Value("${signing.key}")
-		private String jwtSigningKey = "1593304145";
+	private String jwtSigningKey = "345345fsdfsf5345";
 
 	public String getJwtSigningKey() {
 		return jwtSigningKey;
 	}
-	
-	
 }

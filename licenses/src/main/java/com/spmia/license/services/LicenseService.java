@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 import com.netflix.hystrix.contrib.javanica.annotation.DefaultProperties;
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixProperty;
+import com.spmia.license.clients.OraganizationOauth2RestTemplateClient;
 import com.spmia.license.clients.OrganizationFeignClient;
 import com.spmia.license.clients.OrganizationRestTemplateClient;
 import com.spmia.license.config.ServiceConfig;
@@ -35,6 +36,9 @@ public class LicenseService {
 	
 	@Autowired
 	private OrganizationRestTemplateClient organizationRestTemplateClient;
+	
+	@Autowired
+	private OraganizationOauth2RestTemplateClient organizationOauth2RestTemplateClient;
 	
 	@Autowired
 	private OrganizationFeignClient organizationFeignClient;
@@ -95,8 +99,11 @@ public class LicenseService {
 	
 	private Organization retrieveInfo(String organizationId, String clientType) {
 		//return organizationClient.getOrganization(organizationId);
-		return organizationRestTemplateClient.getOrganization(organizationId);
+//		return organizationRestTemplateClient.getOrganization(organizationId);
 //		return organizationFeignClient.getOrganization(organizationId);
+		
+		return organizationOauth2RestTemplateClient.getOrganization(organizationId);
+		
 	}
 	
 	private void randomlyRunLong() {

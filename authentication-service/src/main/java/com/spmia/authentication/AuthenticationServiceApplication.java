@@ -18,6 +18,8 @@ import com.spmia.authentication.config.ServiceConfig;
 // token testing url : http://localhost:8901/auth/oauth/token
 // testing accesing user  http://localhost:8901/auth/user     [(Header) Authorization : Bearer [generatedToken from above url]]
 
+// decode token : https://www.jsonwebtoken.io/
+
 @SpringBootApplication
 @RestController
 @EnableResourceServer

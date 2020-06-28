@@ -5,12 +5,14 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 
 import com.spmia.license.model.Organization;
 import com.spmia.license.utils.UserContext;
 import com.spmia.license.utils.UserContextHolder;
 
+@Component
 public class OraganizationOauth2RestTemplateClient {
 	 	@Autowired
 	    RestTemplate restTemplate;
@@ -23,7 +25,7 @@ public class OraganizationOauth2RestTemplateClient {
 
 	        ResponseEntity<Organization> restExchange =
 	                restTemplate.exchange(
-	                        "http://zuulserver:5555/api/organization/v1/organizations/{organizationId}",
+	                        "http://zuulserver:8761/api/organization/v1/organizations/{organizationId}",
 	                        HttpMethod.GET,
 	                        null, Organization.class, organizationId);
 

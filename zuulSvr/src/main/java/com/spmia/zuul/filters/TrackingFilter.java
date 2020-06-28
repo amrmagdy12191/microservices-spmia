@@ -8,6 +8,10 @@ import org.springframework.stereotype.Component;
 import com.netflix.zuul.ZuulFilter;
 import com.netflix.zuul.context.RequestContext;
 import com.netflix.zuul.exception.ZuulException;
+import com.spmia.zuul.config.ServiceConfig;
+
+import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.Jwts;
 
 @Component
 public class TrackingFilter extends ZuulFilter {
@@ -18,6 +22,9 @@ public class TrackingFilter extends ZuulFilter {
 	
 	@Autowired
 	FilterUtils filterUtils;
+	
+	@Autowired
+	ServiceConfig serviceConfig;
 
 	@Override
 	public boolean shouldFilter() {
@@ -35,6 +42,9 @@ public class TrackingFilter extends ZuulFilter {
 		
 		RequestContext context= RequestContext.getCurrentContext();
 		
+		logger.info("The organization id from the token is : " + getOrganizationId());
+        filterUtils.setOrgId(getOrganizationId());
+        
 		logger.info("Processing incoming request for {}.", context.getRequest().getRequestURI());
 		return null;
 	}
@@ -60,4 +70,22 @@ public class TrackingFilter extends ZuulFilter {
 		return java.util.UUID.randomUUID().toString();
 	}
 
+    private String getOrganizationId(){
+
+        String result="";
+        if (filterUtils.getAuthToken()!=null){
+
+            String authToken = filterUtils.getAuthToken().replace("Bearer ","");
+            try {
+                Claims claims = Jwts.parser()
+                        .setSigningKey(serviceConfig.getJwtSigningKey().getBytes("UTF-8"))
+                        .parseClaimsJws(authToken).getBody();
+                result = (String) claims.get("organizationId");
+            }
+            catch (Exception e){
+                e.printStackTrace();
+            }
+        }
+        return result;
+    }
 }
