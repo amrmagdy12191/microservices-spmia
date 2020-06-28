@@ -42,8 +42,8 @@ public class TrackingFilter extends ZuulFilter {
 		
 		RequestContext context= RequestContext.getCurrentContext();
 		
-		logger.info("The organization id from the token is : " + getOrganizationId());
-        filterUtils.setOrgId(getOrganizationId());
+//		logger.info("The organization id from the token is : " + getOrganizationId());
+//        filterUtils.setOrgId(getOrganizationId());
         
 		logger.info("Processing incoming request for {}.", context.getRequest().getRequestURI());
 		return null;
