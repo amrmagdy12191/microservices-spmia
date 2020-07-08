@@ -11,4 +11,17 @@ security:
   oauth2:
     resource:
       user-info-uri: http://localhost:8901/auth/user 
-        
+
+#Kafka Example      
+       
+
+spring:
+  cloud:
+    stream:
+      kafka:
+        binder:
+          brokers: localhost:9092
+      bindings:
+        greetings-out:
+          destination: greetings
+          contentType: application/json          

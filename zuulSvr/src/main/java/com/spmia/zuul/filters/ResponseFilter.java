@@ -28,8 +28,15 @@ public class ResponseFilter extends ZuulFilter {
 	public Object run() throws ZuulException {
 		RequestContext context = RequestContext.getCurrentContext();
 		
-		logger.info("Adding the correlation id to the outbound headers. {}", filterUtils.getCorrelationId());
+		logger.info("Adding the correlation id to the outbound headers. {}", 
+				filterUtils.getCorrelationId() + " - "
+				+filterUtils.getAuthToken() + " - "
+				+filterUtils.getOrgId() + " - "
+				+filterUtils.getUserId());
 		context.getResponse().addHeader(FilterUtils.CORRELATION_ID, filterUtils.getCorrelationId());
+		context.getResponse().addHeader(FilterUtils.AUTH_TOKEN, filterUtils.getAuthToken());
+		context.getResponse().addHeader(FilterUtils.ORG_ID, filterUtils.getOrgId());
+		context.getResponse().addHeader(FilterUtils.USER_ID, filterUtils.getUserId());
 		logger.info("Completing outgoing request for {}.", context.getRequest().getRequestURI());
 		
 		return null;

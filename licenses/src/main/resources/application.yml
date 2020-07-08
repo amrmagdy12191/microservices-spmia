@@ -11,3 +11,16 @@ security:
   oauth2:
     resource:
       user-info-uri: http://localhost:8901/auth/user         
+      
+
+spring:
+  cloud:
+    stream:
+      kafka:
+        binder:
+          brokers: localhost:9092
+      bindings:
+          greetings-in:
+            destination: greetings
+            contentType: application/json
+            group: licensingGroup

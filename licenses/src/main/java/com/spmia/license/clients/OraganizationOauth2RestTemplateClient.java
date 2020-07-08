@@ -23,9 +23,15 @@ public class OraganizationOauth2RestTemplateClient {
 	    public Organization getOrganization(String organizationId){
 	        logger.debug("In Licensing Service.getOrganization: {}", UserContextHolder.getContext().getCorrelationId());
 
+//	        ResponseEntity<Organization> restExchange =
+//	                restTemplate.exchange(
+//	                        "http://zuulserver:8761/api/organization/v1/organizations/{organizationId}",
+//	                        HttpMethod.GET,
+//	                        null, Organization.class, organizationId);
+	        
 	        ResponseEntity<Organization> restExchange =
 	                restTemplate.exchange(
-	                        "http://zuulserver:8761/api/organization/v1/organizations/{organizationId}",
+	                        "http://organizationservice/v1/organizations/{organizationId}",
 	                        HttpMethod.GET,
 	                        null, Organization.class, organizationId);
 

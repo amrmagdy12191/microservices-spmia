@@ -15,6 +15,7 @@ import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixProperty;
 import com.spmia.license.clients.OraganizationOauth2RestTemplateClient;
 import com.spmia.license.clients.OrganizationFeignClient;
+import com.spmia.license.clients.OrganizationRediusRestTemplateClient;
 import com.spmia.license.clients.OrganizationRestTemplateClient;
 import com.spmia.license.config.ServiceConfig;
 import com.spmia.license.model.License;
@@ -39,6 +40,9 @@ public class LicenseService {
 	
 	@Autowired
 	private OraganizationOauth2RestTemplateClient organizationOauth2RestTemplateClient;
+	
+	@Autowired
+	private OrganizationRediusRestTemplateClient OrganizationRediusRestTemplateClient;
 	
 	@Autowired
 	private OrganizationFeignClient organizationFeignClient;
@@ -102,7 +106,8 @@ public class LicenseService {
 //		return organizationRestTemplateClient.getOrganization(organizationId);
 //		return organizationFeignClient.getOrganization(organizationId);
 		
-		return organizationOauth2RestTemplateClient.getOrganization(organizationId);
+	//	return organizationOauth2RestTemplateClient.getOrganization(organizationId);
+		return OrganizationRediusRestTemplateClient.getOrganization(organizationId);
 		
 	}
 	

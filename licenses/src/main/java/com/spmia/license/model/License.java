@@ -1,5 +1,7 @@
 package com.spmia.license.model;
 
+import java.io.Serializable;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -8,7 +10,7 @@ import javax.persistence.Transient;
 
 @Entity
 @Table(name = "licenses")
-public class License {
+public class License  {
 	@Id
 	@Column(name = "license_id", nullable = false)
 	private String licenseId;

@@ -3,6 +3,9 @@ package com.spmia.license;
 import java.util.Collections;
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.circuitbreaker.EnableCircuitBreaker;
@@ -11,14 +14,22 @@ import org.springframework.cloud.client.loadbalancer.LoadBalanced;
 import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
 import org.springframework.cloud.openfeign.EnableFeignClients;
+import org.springframework.cloud.stream.annotation.EnableBinding;
+import org.springframework.cloud.stream.annotation.StreamListener;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Primary;
+import org.springframework.data.redis.connection.jedis.JedisConnectionFactory;
+import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.messaging.handler.annotation.Payload;
 import org.springframework.security.oauth2.client.OAuth2ClientContext;
 import org.springframework.security.oauth2.client.OAuth2RestTemplate;
 import org.springframework.security.oauth2.client.resource.OAuth2ProtectedResourceDetails;
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableResourceServer;
 import org.springframework.web.client.RestTemplate;
 
+import com.spmia.license.config.ServiceConfig;
+import com.spmia.license.events.model.GreetingsStreams;
+import com.spmia.license.events.model.OrganizationChangeModel;
 import com.spmia.license.utils.UserContextInterceptor;
 
 @SpringBootApplication
@@ -28,7 +39,13 @@ import com.spmia.license.utils.UserContextInterceptor;
 //@EnableEurekaClient //enable eureka client
 @EnableCircuitBreaker // circuit breaker
 @EnableResourceServer // service protected by spring security oauth2
+@EnableBinding(GreetingsStreams.class) //Kafka Listner (Consumer)
 public class LicensesApplication {
+	
+	Logger logger = LoggerFactory.getLogger(LicensesApplication.class);
+	
+	@Autowired
+	ServiceConfig serviceConfig;
 
 	public static void main(String[] args) {
 		SpringApplication.run(LicensesApplication.class, args);
@@ -64,5 +81,29 @@ public class LicensesApplication {
 		}
 		return template;
 	}
+	
+	//excute every time recieve message from kafka
+	@StreamListener(GreetingsStreams.INPUT)
+	public void loggerSink(@Payload OrganizationChangeModel organizationChangeModel) {
+		logger.info("Received an event for organization id {}", organizationChangeModel.getOrganizationId());
+	}
+	
+	
+	@Bean
+	public JedisConnectionFactory jedisConnectionFactory() {
+		JedisConnectionFactory jedisConnectionFactory = new JedisConnectionFactory();
+		jedisConnectionFactory.setHostName(serviceConfig.getRedisServer());
+		jedisConnectionFactory.setPort(Integer.parseInt(serviceConfig.getRedisPort()));
+		return jedisConnectionFactory;
+		
+	}
+	
+	@Bean
+	public RedisTemplate<String, Object> redisTemplate(){
+		RedisTemplate<String, Object> template = new RedisTemplate<>();
+		template.setConnectionFactory(jedisConnectionFactory());
+		return template;
+	}
+	
 
 }
