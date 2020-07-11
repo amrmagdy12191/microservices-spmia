@@ -5,6 +5,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.oauth2.client.OAuth2RestTemplate;
+import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 
 import com.spmia.license.model.Organization;
@@ -12,10 +14,11 @@ import com.spmia.license.model.redius.OrganizationRedisRepository;
 import com.spmia.license.utils.UserContextHolder;
 
 
+@Component
 public class OrganizationRediusRestTemplateClient {
 	
 	@Autowired
-	RestTemplate restTemplate;
+	OAuth2RestTemplate restTemplate;
 	
 	@Autowired
 	OrganizationRedisRepository organizationRedisRepository;
@@ -34,7 +37,7 @@ public class OrganizationRediusRestTemplateClient {
         
         ResponseEntity<Organization> restExchange =
                 restTemplate.exchange(
-                        "http://organizationservice/v1/organizations/{organizationId}",
+                        "http://localhost:8762/api/organizationservice/v1/organizations/{organizationId}",
                         HttpMethod.GET,
                         null, Organization.class, organizationId);
         

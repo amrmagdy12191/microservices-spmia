@@ -10,7 +10,10 @@ eureka:
 security:
   oauth2:
     resource:
-      user-info-uri: http://localhost:8901/auth/user         
+      user-info-uri: http://localhost:8901/auth/user
+    client:
+      client-id: first-client
+      client-secret: noonewilleverguess           
       
 
 spring:

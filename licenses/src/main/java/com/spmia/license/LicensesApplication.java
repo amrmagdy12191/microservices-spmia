@@ -58,29 +58,30 @@ public class LicensesApplication {
 //	}
 
 	//not working ignore it, this Ffor your refrence only
-//	@Bean
-//	public OAuth2RestTemplate oAuth2RestTemplate(OAuth2ClientContext auth2ClientContext,
-//			OAuth2ProtectedResourceDetails auth2ProtectedResourceDetails) {
-//		return new OAuth2RestTemplate(auth2ProtectedResourceDetails, auth2ClientContext);
-//	}
+	@Bean
+	@Primary
+	public OAuth2RestTemplate oAuth2RestTemplate(OAuth2ClientContext auth2ClientContext,
+			OAuth2ProtectedResourceDetails auth2ProtectedResourceDetails) {
+		return new OAuth2RestTemplate(auth2ProtectedResourceDetails, auth2ClientContext);
+	}
 	
 	/**
 	 * To ensure Oauth2 token is propogated
 	 * @return
 	 */
-	@Bean
-	@Primary
-	public RestTemplate getCustomRestTemplate() {
-		RestTemplate template = new RestTemplate();
-		List interceptors = template.getInterceptors();
-		if(interceptors == null) {
-			template.setInterceptors(Collections.singletonList(new UserContextInterceptor()));
-		}else {
-			interceptors.add(new UserContextInterceptor());
-			template.setInterceptors(interceptors);
-		}
-		return template;
-	}
+//	@Bean
+//	@Primary
+//	public RestTemplate getCustomRestTemplate() {
+//		RestTemplate template = new RestTemplate();
+//		List interceptors = template.getInterceptors();
+//		if(interceptors == null) {
+//			template.setInterceptors(Collections.singletonList(new UserContextInterceptor()));
+//		}else {
+//			interceptors.add(new UserContextInterceptor());
+//			template.setInterceptors(interceptors);
+//		}
+//		return template;
+//	}
 	
 	//excute every time recieve message from kafka
 	@StreamListener(GreetingsStreams.INPUT)
