@@ -44,7 +44,7 @@ public class OrganizationRediusRestTemplateClient {
         org = restExchange.getBody();
         
         if(org != null) {
-        	cacheOrganizationObject(org);
+        	//cacheOrganizationObject(org);
         }
 
         return org;
@@ -52,7 +52,7 @@ public class OrganizationRediusRestTemplateClient {
     
     private Organization checkRedisCache(String organizationId) {
     	try {
-    		return organizationRedisRepository.findOrganization(organizationId);
+    		//return organizationRedisRepository.findOrganization(organizationId);
     	}catch (Exception e) {
     		logger.error("Error encountered while trying to retrieve organization {} check Redis Cache.Exception {}", organizationId, e);
 		}
