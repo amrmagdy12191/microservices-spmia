@@ -13,6 +13,11 @@ public class Greetings {
     public Greetings() {
 		// TODO Auto-generated constructor stub
 	}
+    
+    public Greetings(long timestamp, String message) {
+		this.timestamp = timestamp;
+		this.message = message;
+	}
 
 	public long getTimestamp() {
 		return timestamp;

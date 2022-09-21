@@ -42,6 +42,7 @@ public class OrganizationRediusRestTemplateClient {
                         null, Organization.class, organizationId);
         
         org = restExchange.getBody();
+        restExchange.getHeaders();
         
         if(org != null) {
         	//cacheOrganizationObject(org);
